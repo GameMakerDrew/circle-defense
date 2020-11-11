@@ -30,11 +30,6 @@ public class PlayerBehavior : MonoBehaviour
         GetComponent<NavMeshAgent>().acceleration = PSO.angularSpeed;
     }
 
-    private void FixedUpdate()
-    {
-       
-    }
-
     void MoveOnClick()
     {
         GetComponent<NavMeshAgent>().SetDestination(cursor.position);
