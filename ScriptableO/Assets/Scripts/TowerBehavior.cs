@@ -8,7 +8,6 @@ public class TowerBehavior : MonoBehaviour
 
     [SerializeField] private TowerSO TSO;
 
-    private int count = 0;
     private int health;
     private int attackSpeed;
     private int power;

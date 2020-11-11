@@ -16,7 +16,6 @@ public class InputController : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(1))
         {
-            Debug.Log("MBUp");
             GameEvents.current.RightClick();
         }
 

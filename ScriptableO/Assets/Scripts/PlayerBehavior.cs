@@ -37,7 +37,6 @@ public class PlayerBehavior : MonoBehaviour
 
     void MoveOnClick()
     {
-        Debug.Log("OnCLick");
         GetComponent<NavMeshAgent>().SetDestination(cursor.position);
     }
 }
