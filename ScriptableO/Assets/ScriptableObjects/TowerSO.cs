@@ -6,7 +6,7 @@ using UnityEngine;
 public class TowerSO : ScriptableObject
 {
     public int health;
-    public int attackSpeed;
+    public float attackSpeed;
     public int power;
     public int range;
 

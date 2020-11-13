@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Turret1
   m_EditorClassIdentifier: 
   health: 0
-  attackSpeed: 0
+  attackSpeed: 0.3
   power: 0
-  range: 39
+  range: 175
   projectile: {fileID: 8829723940619644067, guid: f7546889a218841bc99fe4f73a64d455, type: 3}

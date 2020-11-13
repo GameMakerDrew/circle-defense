@@ -9,16 +9,20 @@ public class TowerBehavior : MonoBehaviour
     [SerializeField] private TowerSO TSO;
 
     private int health;
-    private int attackSpeed;
+    private float attackSpeed;
     private int power;
     private int range;
     private int attackIndex;
 
     private GameObject projectile;
 
-    private GameObject[] attackable = new GameObject[10];
-
     private GameObject turretHead;
+
+
+
+
+
+    private GameObject target;
 
     // Start is called before the first frame update
     void Start()
@@ -29,41 +33,51 @@ public class TowerBehavior : MonoBehaviour
         range = TSO.range;
         projectile = TSO.projectile;
         turretHead = transform.GetChild(3).gameObject;
+        InvokeRepeating("FindClosestTarget", 0f, 1f);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-            RotateToClosestEnemy();
-        
-       
+        if (target == null)
+        {
+            return;
+        }
+
+        RotateToTarget();
     }
 
-    private void RotateToClosestEnemy()
+    private void FindClosestTarget()
     {
-        float tempDist = 1000;
-        int i = 0;
-        int z = 0;
+        float shortestDist = Mathf.Infinity;
+        GameObject nearestEnemy = null;
         foreach (GameObject enemy in ALSO.enemies)
         {
-            float dist = Vector3.Distance(transform.position, enemy.transform.position);
-            if (dist < tempDist)
+            float testDist = Vector3.Distance(transform.position, enemy.transform.position);
+            if (testDist < shortestDist)
             {
-                z = i;
-                tempDist = dist;
+                nearestEnemy = enemy;
+                shortestDist = testDist;
             }
-            i++;
         }
 
-        if (tempDist < range)
+        if (nearestEnemy != null && shortestDist <= range)
         {
-            turretHead.transform.rotation = Quaternion.LookRotation(ALSO.enemies[z].transform.position - transform.position);
-            var th = Instantiate(TSO.projectile, turretHead.transform.position, new Quaternion(0, 0, 0, 0));
-            th.GetComponent<Rigidbody>().velocity = ALSO.enemies[z].transform.position - transform.position;
-
-            //TODO: Make it not call instantiate every 
+            target = nearestEnemy;
         }
-        
+        else
+        {
+            target = null;
+        }
+
     }
+
+    private void RotateToTarget()
+    {
+        turretHead.transform.LookAt(new Vector3(target.transform.position.x, turretHead.transform.position.y, target.transform.position.z));
+    }
+
+
+
 }
